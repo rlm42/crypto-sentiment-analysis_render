@@ -1,0 +1,96 @@
+@media (max-width: 768px) {
+  .card-body {
+    height: 250px;
+    overflow-y: scroll;
+  }
+}
+
+.nav-tabs .nav-link {
+  font-size: 18px;
+}
+
+.form-group {
+  margin-bottom: 0.5rem;
+}
+
+.table thead th {
+  border: none;
+  font-size: 16px;
+}
+
+.table td {
+  font-size: 14px;
+}
+
+.table td:nth-of-type(2) {
+  width: 60%;
+}
+
+.card {
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+  padding: 1rem;
+}
+
+.card-body a {
+  text-decoration: none;
+  color: #333;
+}
+
+.card-body a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+}
+
+td.author {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.newsTableRow:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.tweetsTableRow:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.author-col {
+  width: 100px; /* Adjust this value as needed */
+  max-width: 100px; /* This ensures the column doesn't expand beyond the width set */
+  white-space: nowrap; /* This ensures the text doesn't wrap */
+  overflow: hidden; /* This hides the text that exceeds the width */
+  text-overflow: ellipsis; /* This adds ellipsis to the end of the truncated text */
+}
+
+@media (max-width: 576px) {
+  /* This applies the styles to screens smaller than 576px in width */
+  .author-col {
+    width: 50px; /* Adjust this value as needed */
+    max-width: 50px; /* This ensures the column doesn't expand beyond the width set */
+  }
+}
+
+.chart-container {
+  position: relative;
+  padding-bottom: 100%;
+  height: 0;
+}
+
+.chart-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Search Results</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <h1 class="text-center">Search Results</h1>
+      <button type="button" class="btn btn-secondary mb-2 font-weight-bold" id="backButton">Back</button>
+      <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="tweets-tab" data-toggle="tab" href="#tweets" role="tab" aria-controls="tweets" aria-selected="true">Tweets</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="news-tab" data-toggle="tab" href="#news" role="tab" aria-controls="news" aria-selected="false">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="sentiment-tab" data-toggle="tab" href="#sentiment" role="tab" aria-controls="sentiment" aria-selected="false">Sentiment Analysis</a>
+        </li>      
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="tweets" role="tabpanel" aria-labelledby="tweets-tab">
+          <div class="form-group mt-3">
+            <label for="sentimentFilter">Filter by Sentiment:</label>
+            <select class="form-control" id="sentimentFilter">
+              <option value="All">All</option>
+              <option value="Positive">Positive</option>
+              <option value="Neutral">Neutral</option>
+              <option value="Negative">Negative</option>
+            </select>
+          </div>
+          <div class="card" style="overflow-y: scroll; height: 500px;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">User</th>
+                  <th scope="col">Latest Tweets</th>
+                  <th scope="col">Sentiment</th>
+                  <th scope="col">Weight</th>
+                  <th scope="col">Favorites</th>
+                  <th scope="col">Retweets</th>
+                  <th scope="col" class="d-none">Timestamp</th>
+                </tr>
+              </thead>
+              <tbody id="tweetsTableBody">
+                {% for index, row in data.iterrows() %}
+                <tr class="newsTableRow">
+                  <td class="max-width">{{ row.user }}</td>
+                  <td>{{ row.text }}</td>
+                  <td class=>{{ row.sentiment_label }}</td>
+                  <td class=>{{ row.sentiment_score|round(2) }}</td>
+                  <td>{{ row.favorite_count }}</td>
+                  <td>{{ row.retweet_count }}</td>
+                  <td class="d-none">{{ row.created_at }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <div class="tab-pane fade" id="news" role="tabpanel" aria-labelledby="news-tab">
+          <div class="form-group mt-3">
+            <label for="sentimentFilterNews">Filter by Sentiment:</label>
+            <select class="form-control" id="sentimentFilterNews">
+              <option value="All">All</option>
+              <option value="Positive">Positive</option>
+              <option value="Neutral">Neutral</option>
+              <option value="Negative">Negative</option>
+            </select>
+          </div>
+          <div class="card" style="overflow-y: scroll; height: 500px;">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col" class="d-none">Source</th>
+                  <th scope="col" class="d-none">urlToImage</th>
+                  <th scope="col">Author</th>
+                  <th scope="col">Headline</th>
+                  <th scope="col" class="d-none">Description</th>
+                  <th scope="col">URL</th>
+                  <th scope="col" class="d-none">publishedAt</th>
+                  <th scope="col" class="d-none">content</th>
+                  <th scope="col">Sentiment</th>
+                  <th scope="col">Weight</th>
+                </tr>
+              </thead>
+              <tbody id="newsTableBody">
+                {% for index, row in news.iterrows() %}
+                <tr class="newsTableRow">
+                  <td class="d-none">{{ row.source }}</td>
+                  <td class="d-none">{{ row.urlToImage }}</td>
+                  <td class="max-width author-col">{{ row.author }}</td>
+                  <td>{{ row.title }}</td>
+                  <td class="d-none">{{ row.description }}</td>
+                  <td>{{ row.url }}</td>
+                  <td class="d-none">{{ row.publishedAt }}</td>
+                  <td class="d-none">{{ row.content }}</td>
+                  <td class=>{{ row.sentiment_label }}</td>
+                  <td class=>{{ row.sentiment_score|round(2) }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+            <!-- Third Tab: Sentiment Analysis -->
+            <div class="tab-pane fade" id="sentiment" role="tabpanel" aria-labelledby="sentiment-tab">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="chart-container">
+                    <img src="data:image/svg+xml;base64,{{ plot }}" alt="Sentiment Analysis Results" class="chart-img">
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="chart-container">
+                    <img src="data:image/svg+xml;base64,{{ news_plot }}" alt="News Sentiment Analysis Results" class="chart-img">
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+                      
+    </div>
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
